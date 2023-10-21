@@ -1,23 +1,26 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContacts, deleteContacts } from 'redux/contactsReducer';
+import { setFilter } from 'redux/filterReducer';
 
 const App = () => {
-  const [contacts, setContacts] = useState(() => {
+  const contacts = useSelector((state) => state.contacts.contacts );
+  const filter = useSelector((state) => state.contacts.filter );
+  const dispatch = useDispatch();
+  
 
-    return JSON.parse(localStorage.getItem('contacts')) ?? []
+  // const [contacts, setContacts] = useState(() => {
+  //   return JSON.parse(localStorage.getItem('contacts')) ?? [];
+  // });
+  // const [filter, setFilter] = useState('');
 
-  });
-  const [filter, setFilter] = useState('');
-
-
-  useEffect(() => {
-    const stringifiedContacts = JSON.stringify(contacts);
-    localStorage.setItem('contacts', stringifiedContacts);
-  }, [contacts]);
+  // useEffect(() => {
+  //   const stringifiedContacts = JSON.stringify(contacts);
+  //   localStorage.setItem('contacts', stringifiedContacts);
+  // }, [contacts]);
 
   const addContact = newContact => {
     const contactExist = contacts.some(
@@ -26,22 +29,25 @@ const App = () => {
     if (contactExist) {
       alert(`${newContact.name} is already in contacts.`);
       return;
-    }
-    setContacts((prevContacts) => [...prevContacts, newContact]);
+    }dispatch(addContacts(newContact))
+    // setContacts(prevContacts => [...prevContacts, newContact]);
   };
 
   const deleteContact = id => {
-    setContacts((prevContacts) =>
-      prevContacts.filter((contact) => contact.id !== id)
-    );
+    dispatch(deleteContacts(id))
+    // setContacts(prevContacts =>
+    //   prevContacts.filter(contact => contact.id !== id)
+    // );
   };
 
   const handleFilterChange = filter => {
-    setFilter(filter);
+    dispatch(setFilter(filter));
+    // setFilter(filter);
   };
 
-  const getFilteredContacts = 
-    contacts.filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase()));
+  const getFilteredContacts = contacts.filter(({ name }) =>
+    name.toLowerCase().includes(filter.toLowerCase())
+  );
   return (
     <div>
       <h1>Phonebook</h1>
