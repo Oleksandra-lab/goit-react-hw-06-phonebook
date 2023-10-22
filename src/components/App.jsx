@@ -45,17 +45,18 @@ const App = () => {
     // setFilter(filter);
   };
 
-  const getFilteredContacts = contacts.filter(({ name }) =>
-    name.toLowerCase().includes(filter.toLowerCase())
-  );
+  // const getFilteredContacts = contacts.filter(({ name }) =>
+  //   name.toLowerCase().includes(filter.toLowerCase())
+  // );
   return (
     <div>
       <h1>Phonebook</h1>
       <ContactForm onAddContact={addContact} />
-      <Filter onFilter={handleFilterChange} />
+      <Filter filter={filter} onFilter={handleFilterChange} />
       <h2>Contacts</h2>
       <ContactList
-        contacts={getFilteredContacts}
+        contacts={contacts}
+        filter={filter}
         onDeleteContact={deleteContact}
       />
     </div>

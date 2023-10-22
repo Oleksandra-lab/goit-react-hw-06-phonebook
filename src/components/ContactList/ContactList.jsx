@@ -1,12 +1,15 @@
 import React from 'react';
 import {ContactItem, ContactName, ContactNumber, DeleteBtn} from './ContactList.styled'
 
-const ContactList = ({ contacts, onDeleteContact }) => {
+const ContactList = ({ contacts, filter, onDeleteContact }) => {
   console.log(contacts);
+  const filteredContacts = contacts.filter(({ name }) =>
+    name.toLowerCase().includes(filter.toLowerCase())
+  );
   return (
   
     <ul>
-      {contacts.map(({id, name, number}) => (
+      {filteredContacts.map(({id, name, number}) => (
         <ContactListItem
           key={id}
           id={id}
