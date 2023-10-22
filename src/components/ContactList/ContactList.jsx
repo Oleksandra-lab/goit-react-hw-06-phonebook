@@ -3,6 +3,7 @@ import {ContactItem, ContactName, ContactNumber, DeleteBtn} from './ContactList.
 
 const ContactList = ({ contacts, filter, onDeleteContact }) => {
   console.log(contacts);
+  console.log(filter);
   const filteredContacts = contacts.filter(({ name }) =>
     name.toLowerCase().includes(filter.toLowerCase())
   );

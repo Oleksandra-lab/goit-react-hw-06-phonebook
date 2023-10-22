@@ -8,7 +8,7 @@ import { setFilter } from 'redux/filterReducer';
 
 const App = () => {
   const contacts = useSelector((state) => state.contacts.contacts );
-  const filter = useSelector((state) => state.contacts.filter );
+  const filter = useSelector((state) => state.filter.filter );
   const dispatch = useDispatch();
   
 
