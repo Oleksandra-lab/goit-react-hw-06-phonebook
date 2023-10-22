@@ -7,20 +7,9 @@ import { addContacts, deleteContacts } from 'redux/contactsReducer';
 import { setFilter } from 'redux/filterReducer';
 
 const App = () => {
-  const contacts = useSelector((state) => state.contacts.contacts );
-  const filter = useSelector((state) => state.filter.filter );
+  const contacts = useSelector(state => state.contacts.contacts);
+  const filter = useSelector(state => state.filter.filter);
   const dispatch = useDispatch();
-  
-
-  // const [contacts, setContacts] = useState(() => {
-  //   return JSON.parse(localStorage.getItem('contacts')) ?? [];
-  // });
-  // const [filter, setFilter] = useState('');
-
-  // useEffect(() => {
-  //   const stringifiedContacts = JSON.stringify(contacts);
-  //   localStorage.setItem('contacts', stringifiedContacts);
-  // }, [contacts]);
 
   const addContact = newContact => {
     const contactExist = contacts.some(
@@ -29,25 +18,18 @@ const App = () => {
     if (contactExist) {
       alert(`${newContact.name} is already in contacts.`);
       return;
-    }dispatch(addContacts(newContact))
-    // setContacts(prevContacts => [...prevContacts, newContact]);
+    }
+    dispatch(addContacts(newContact));
   };
 
   const deleteContact = id => {
-    dispatch(deleteContacts(id))
-    // setContacts(prevContacts =>
-    //   prevContacts.filter(contact => contact.id !== id)
-    // );
+    dispatch(deleteContacts(id));
   };
 
   const handleFilterChange = filter => {
     dispatch(setFilter(filter));
-    // setFilter(filter);
   };
 
-  // const getFilteredContacts = contacts.filter(({ name }) =>
-  //   name.toLowerCase().includes(filter.toLowerCase())
-  // );
   return (
     <div>
       <h1>Phonebook</h1>
